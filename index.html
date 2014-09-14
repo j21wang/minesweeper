@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="minesweeper.css">
+        <script src="closure-library/closure/goog/base.js"></script>
+        <script src="minesweeper.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <button id="new" onclick="newGame()">New Game</button>
+            <button id="cheat" onclick="cheat()">Cheat</button>
+            <button id="uncheat" onclick="uncheat()">Uncheat</button>
+            <div id="tiles">
+                <div class="row row-1"></div>
+                <div class="row row-2"></div>
+                <div class="row row-3"></div>
+                <div class="row row-4"></div>
+                <div class="row row-5"></div>
+                <div class="row row-6"></div>
+                <div class="row row-7"></div>
+                <div class="row row-8"></div>
+            </div>
+        </div>
+        <script>
+          // Config for the board.
+          // TODO: There are 8 hardcoded rows in the HTML,
+          // so the HEIGHT can only be 8 for now.
+          var Config = {
+              WIDTH: 8,
+              HEIGHT: 8,
+              NUM_BOMBS: 10
+          };
+
+          // will contain all tile objects
+          var allTiles = [];
+
+          // checks whether the player has won
+          function validate() {
+            var tiles = document.getElementsByClassName('tile');
+            var count = 0;
+            for (var i = 0; i < tiles.length; i++) {
+              if (tiles[i].getAttribute('visited') == 'true' &&
+                  tiles[i].getAttribute('bomb') == 'false') {
+                count++;
+              }
+            }
+            if (count == Config.WIDTH * Config.HEIGHT - Config.NUM_BOMBS) {
+              return true;
+            }
+            return false;
+          }
+
+          // shows all the bombs on the board
+          function cheat() {
+            var tiles = document.getElementsByClassName('tile');
+            for (var i = 0; i < tiles.length; i++) {
+              if (tiles[i].getAttribute('bomb') == 'true') {
+                tiles[i].style.backgroundColor = 'red';
+              }
+            }
+          }
+
+          // hides all the bombs on the board if they are shown
+          function uncheat() {
+            var tiles = document.getElementsByClassName('tile');
+            for (var i = 0; i < tiles.length; i++) {
+              if (tiles[i].getAttribute('bomb') == 'true') {
+                tiles[i].style.backgroundColor = '#A8A8A8';
+              }
+            }
+          }
+
+          function newGame() {
+            removeAllTiles();
+            createBoard();
+          }
+
+          // removes all tiles from the previous game
+          function removeAllTiles() {
+            var rows = document.getElementById('tiles').children;
+            for (var i = 0; i < rows.length; i++) {
+              while (rows[i].firstChild) {
+                rows[i].removeChild(rows[i].firstChild);
+              }
+            }
+          }
+
+          function createBoard() {
+            var boardElement = document.getElementById('tiles');
+            boardElement.style.pointerEvents = 'auto';
+            var tiles = thumbtack.minesweeper.createTiles(boardElement);
+          }
+
+          createBoard();
+        </script>
+    </body>
+</html>

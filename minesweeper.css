@@ -1,0 +1,35 @@
+.tile {
+    background-color: #A8A8A8;
+    border: thin solid black;
+    box-shadow: 2px 2px 2px black;
+    cursor: pointer;
+    float: left;
+    font-family: "Lucida Console", Monaco, monospace;
+    font: 10px;
+    font-weight: bold;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    width: 20px;
+}
+
+.row {
+    display: block;
+    width: 180px;
+}
+
+.container {
+  border: thin solid black;
+  height: 230px;
+  padding: 12px;
+  width: 200px;
+}
+
+#tiles {
+  padding: 12px;
+}
+
+.visited {
+  background-color: #E0E0E0;
+  border: thin solid #686868;
+}
